@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="country_code_array">
+    <item>+254</item>
+    <item>+253</item>
+    <item>+252</item>
+    </string-array>
+</resources>

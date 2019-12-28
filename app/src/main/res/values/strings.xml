@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">MyDarasa</string>
+
+    <string name="next">NEXT</string>
+    <string name="skip">SKIP</string>
+    <string name="start">GOT IT</string>
+
+    <string name="slide_1_title">Welcome to My Darasa</string>
+    <string name="slide_1_desc">The easiest way to manage all your child\'s school affairs!</string>
+
+    <string name="slide_2_title">Stay in control of your child\'s affairs</string>
+    <string name="slide_2_desc">You will always be in the loop about your child\'s educational and recreational activities</string>
+
+    <string name="slide_3_title">Get Instant  Notifications</string>
+    <string name="slide_3_desc">Never miss important communications about your child.</string>
+
+    <string name="slide_4_title">World Travel</string>
+    <string name="slide_4_desc">Book tickets of any transportation and travel the world!</string>
+
+    <string name="play_again_desc">To see the welcome slider again, goto Settings -> apps -> welcome slider -> clear data</string>
+    <string name="play_again">Play Again</string>
+    <string name="loading">Loading</string>
+</resources>
