@@ -2,6 +2,7 @@ package com.mydarasa.app.timetable;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.mydarasa.app.cocurricular.TrainingModel;
 
 public class TimetableModel {
 
@@ -16,6 +17,7 @@ public class TimetableModel {
     @SerializedName("feeItem")
     @Expose
     private TimetableItemModel[] timetableItemModel;
+
 
     public String getClassNo() {
         return classNo;
@@ -40,4 +42,6 @@ public class TimetableModel {
     public void setTimetableItemModel(TimetableItemModel[] timetableItemModel) {
         this.timetableItemModel = timetableItemModel;
     }
+
+
 }

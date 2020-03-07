@@ -41,48 +41,71 @@
             android:layout_marginBottom="-7dp"/>
     </com.google.android.material.appbar.AppBarLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_margin="8dp"
-            android:gravity="center_horizontal"
             >
             <TextView
+                android:visibility="gone"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Student:"
-                android:layout_marginBottom="5dp"
                 android:textColor="@android:color/black"
-                />
-            <Spinner
-                android:layout_marginLeft="8dp"
-                android:layout_width="200dp"
+                android:textSize="16dp"
+                android:id="@+id/tvStudName"/>
+
+            <com.takusemba.multisnaprecyclerview.MultiSnapRecyclerView
+                android:layout_below="@id/tvStudName"
+                android:id="@+id/rvStudentPicker"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/spinnerStudent"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                app:msrv_gravity="start"
+                app:msrv_interval="1" />
 
-                />
 
-        </LinearLayout>
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_marginTop="16dp"
-            android:id="@+id/rv_fees"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-             />
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="vertical"
+                android:layout_below="@id/rvStudentPicker">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_marginTop="16dp"
+                        android:id="@+id/rv_fees"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_marginTop="16dp"
+                        android:id="@+id/rv_feeStructure"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        />
+
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
+
+        </RelativeLayout>
+
+
 
     </LinearLayout>
 
 
 
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:layout_margin="16dp"
-        android:src="@drawable/ic_add"
-        android:contentDescription="Create"/>
 
 
 

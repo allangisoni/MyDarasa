@@ -1,11 +1,18 @@
 package com.mydarasa.app.events;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.mydarasa.app.GetDataService;
+import com.mydarasa.app.PrefManager;
 import com.mydarasa.app.R;
+import com.mydarasa.app.RetrofitClientInstance;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -17,16 +24,26 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class EventsAdapter extends RecyclerView.Adapter<EventsViewHolder> {
 
     List<EventsModel> eventsModelList;
     Context mContext;
     Boolean isRSVP = false;
+    PrefManager prefManager;
+    String accessToken = " ";
+    int dialogOption = 2;
+    int att =0;
+    int checkedItem = 0;
 
     public EventsAdapter(Context context,List<EventsModel> eventsModelLists ){
         this.mContext = context;
         this.eventsModelList =eventsModelLists;
+        this.prefManager = new PrefManager(mContext);
+        accessToken = prefManager.getAccessToken();
     }
 
 
@@ -40,7 +57,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsViewHolder> {
     @Override
     public void onBindViewHolder(final EventsViewHolder holder, int position) {
 
-        EventsModel eventsModel = eventsModelList.get(position);
+        final EventsModel eventsModel = eventsModelList.get(position);
 
         holder.tvEventName.setText(eventsModel.getEventName());
         holder.tvSchoolName.setText(eventsModel.getSchool());
@@ -62,18 +79,128 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsViewHolder> {
 
             holder.tvEventDate.setText(formattedDate);
             holder.tvEventTime.setText(formattedTime);
+            holder.tvAttendance.setText("Attending:"+ " "+ eventsModel.getRsvp());
+
+            String tvRsvpAttendance = eventsModel.getRsvp();
+
+
+        if(tvRsvpAttendance.toLowerCase().equals("yes")) {
+         holder.ivTickCancel.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_tick));
+         holder.tvRSVP.setTextColor(mContext.getResources().getColor(R.color.colorPrimary));
+         //isRSVP = true;
+         } else if(tvRsvpAttendance.toLowerCase().equals("maybe")){
+            holder.ivTickCancel.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_cancel));
+            holder.ivTickCancel.setColorFilter(mContext.getResources().getColor(android.R.color.holo_orange_light));
+            holder.tvRSVP.setTextColor(mContext.getResources().getColor(android.R.color.holo_orange_light));
+        }
+
+        else {
+         holder.ivTickCancel.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_cancel));
+         holder.tvRSVP.setTextColor(mContext.getResources().getColor(R.color.color_red_rsvp));
+         //isRSVP = false;
+         }
             holder.linearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(!isRSVP) {
-                        holder.ivTickCancel.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_tick));
-                        holder.tvRSVP.setTextColor(mContext.getResources().getColor(R.color.colorPrimary));
-                        isRSVP = true;
-                    } else {
-                        holder.ivTickCancel.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_cancel));
-                        holder.tvRSVP.setTextColor(mContext.getResources().getColor(R.color.color_red_rsvp));
-                        isRSVP = false;
+
+                    AlertDialog.Builder builder =new AlertDialog.Builder(mContext, R.style.AlertDialogCustom);
+                    builder.setTitle("Select option");
+
+
+
+                    final String[] RSVPOptions = {"Yes", "Maybe", "No"};
+
+
+                    if (eventsModel.getRsvp().toLowerCase().equals("yes")){
+                        att =0;
+                    }else if(eventsModel.getRsvp().toLowerCase().equals("maybe")){
+                        att = 1;
                     }
+                    else {
+                        att = 2;
+                    }
+                     checkedItem = att;
+
+                    builder.setSingleChoiceItems(RSVPOptions, checkedItem, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            if(which ==0){
+                                dialogOption = 0;
+                                holder.ivTickCancel.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_tick));
+                                holder.ivTickCancel.setColorFilter(mContext.getResources().getColor(R.color.colorPrimary));
+                                holder.tvRSVP.setTextColor(mContext.getResources().getColor(R.color.colorPrimary));
+                                holder.tvAttendance.setText("Attending:"+ " "+ "Yes");
+                                isRSVP = true;
+                                att = 0;
+                                checkedItem = 0;
+
+
+                            } else if(which == 2){
+                                dialogOption = 2;
+                                holder.ivTickCancel.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_cancel));
+                                holder.tvRSVP.setTextColor(mContext.getResources().getColor(R.color.color_red_rsvp));
+                                holder.ivTickCancel.setColorFilter(mContext.getResources().getColor(R.color.color_red_rsvp));
+                                holder.tvAttendance.setText("Attending:"+ " "+"No");
+                                isRSVP = false;
+                                att = 2;
+                                checkedItem =2;
+                            } else {
+                                dialogOption = 1;
+                                holder.ivTickCancel.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_cancel));
+                                //holder.ivTickCancel.setBackground(mContext.getResources().getColor(android.R.color.holo_orange_light));
+                                holder.ivTickCancel.setColorFilter(mContext.getResources().getColor(android.R.color.holo_orange_light));
+                                holder.tvRSVP.setTextColor(mContext.getResources().getColor(android.R.color.holo_orange_light));
+                                isRSVP = false;
+                                holder.tvAttendance.setText("Attending:"+ " "+"Maybe");
+                                att = 1;
+                                checkedItem = 1;
+                            }
+                        }
+                    });
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+
+                            String status = RSVPOptions[dialogOption];
+                            //Toast.makeText(mContext, "" +eventsModel.getEventId()+""+ status, Toast.LENGTH_SHORT).show();
+                            RsvpModel rsvpModel = new RsvpModel();
+                            rsvpModel.setEventId(eventsModel.getEventId());
+                            rsvpModel.setStatus(status);
+
+                            GetDataService retrofitService = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
+                            Call<RsvpModel> call = retrofitService.sendRsvpStatus("Bearer" +" "+ accessToken, rsvpModel);
+                            call.enqueue(new Callback<RsvpModel>() {
+                                @Override
+                                public void onResponse(Call<RsvpModel> call, Response<RsvpModel> response) {
+                                    if(response.isSuccessful()){
+                                        //notifyDataSetChanged();
+                                        //Toast.makeText(mContext, "Saved successfully!", Toast.LENGTH_LONG).show();
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<RsvpModel> call, Throwable t) {
+                                  //  Toast.makeText(mContext, "failed!", Toast.LENGTH_LONG).show();
+                                }
+                            });
+
+
+                        }
+                    });
+
+                    builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+
+
                 }
             });
 

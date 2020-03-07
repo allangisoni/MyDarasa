@@ -17,7 +17,9 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.mydarasa.app.alerts.AlertsActivity;
+import com.mydarasa.app.chat.ChatActivity;
 import com.mydarasa.app.cocurricular.CocuricularActivity;
+import com.mydarasa.app.cocurricular.CocurricularSchoolActivity;
 import com.mydarasa.app.events.EventsActivity;
 import com.mydarasa.app.fees.FeesActivity;
 import com.mydarasa.app.progressreports.ProgressReportsActivity;
@@ -60,6 +62,18 @@ public class MainActivity extends AppCompatActivity {
 
         prefManager = new PrefManager(this);
         accessToken = prefManager.getAccessToken();
+
+        long currentTime = System.currentTimeMillis();
+        long tokenTime = Long.parseLong(prefManager.getTokenTime());
+
+        Log.d("accessTime", " "+ prefManager.getTokenTime());
+        Log.d("accessTimec", " "+ currentTime);
+
+        if(currentTime>tokenTime){
+            RequestNewToken requestNewToken = new RequestNewToken(getApplicationContext());
+            requestNewToken.getNewToken();
+            //Toast.makeText(CocuricularActivity.this, "" + currentTime, Toast.LENGTH_SHORT).show();
+        }
 
 
 
@@ -120,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
         cvCocurricular.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, CocuricularActivity.class));
+                startActivity(new Intent(MainActivity.this, CocurricularSchoolActivity.class));
             }
         });
 
@@ -166,6 +180,7 @@ public class MainActivity extends AppCompatActivity {
                         //Toast.makeText(MainActivity.this, "Home", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.action_alerts:
+                       // startActivity(new Intent(MainActivity.this, AlertsActivity.class));
                         startActivity(new Intent(MainActivity.this, AlertsActivity.class));
                         //Toast.makeText(MainActivity.this, "Alerts", Toast.LENGTH_SHORT).show();
                         break;

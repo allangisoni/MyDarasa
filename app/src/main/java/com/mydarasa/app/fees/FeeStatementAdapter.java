@@ -1,6 +1,7 @@
 package com.mydarasa.app.fees;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +40,16 @@ public class FeeStatementAdapter extends RecyclerView.Adapter<FeeStatementViewHo
          holder.tvFeeAmount.setText("Amt: " + feeStatementModel.getFeeAmount());
          holder.tvFeeBal.setText("Bal: " +feeStatementModel.getFeeBal());
          holder.tvFeePaid.setText("Paid: " +feesPaid);
+         holder.tvStudent.setText(feeStatementModel.getStudentName());
+
+         holder.cvFeeDetails.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 Intent intent = new Intent(mContext, FeeStatementDetailsActivity.class);
+                 //intent.putExtra("studentName", )
+                 mContext.startActivity(intent);
+             }
+         });
 
     }
 

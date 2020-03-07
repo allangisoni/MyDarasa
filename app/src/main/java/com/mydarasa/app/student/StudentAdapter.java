@@ -43,15 +43,16 @@ public class StudentAdapter extends RecyclerView.Adapter< StudentViewHolder> {
 
         //holder.tvStudentName.setText("djdkkkd");
        holder.tvStudentName.setText( student.getName() );
-       holder.tvSchoolName.setText( student.getSchoolId() + " "+"School");
-       holder.tvClassName.setText("Class"+" "+student.getClassId());
+       holder.tvSchoolName.setText( student.getSchoolId() );
+       holder.tvClassName.setText(student.getClassId());
 
        holder.rlStudents.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
-               String id = Integer.toString(student.getId());
+               String id = (student.getId());
                Intent intent = new Intent(mContext, StudentInfoActivity.class);
                intent.putExtra("studentId", id);
+               intent.putExtra("studentName", student.getName());
 
                mContext.startActivity(intent);
            }

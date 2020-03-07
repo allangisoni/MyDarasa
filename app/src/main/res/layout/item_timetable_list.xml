@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:background="@android:color/white"
+        android:id="@+id/rlTimetable"
         >
 
     <TextView
@@ -31,8 +32,7 @@
             android:layout_marginLeft="8dp"
             android:layout_toRightOf="@id/tvStartTime"
             android:layout_width="4dp"
-            android:layout_height="64dp"
-            android:background="@color/dot_dark_screen3"/>
+            android:layout_height="64dp" />
 
         <TextView
             android:layout_marginBottom="8dp"

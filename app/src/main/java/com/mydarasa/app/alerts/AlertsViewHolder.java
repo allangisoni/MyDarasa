@@ -3,6 +3,7 @@ package com.mydarasa.app.alerts;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mydarasa.app.R;
@@ -10,25 +11,27 @@ import com.mydarasa.app.R;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class AlertsViewHolder extends RecyclerView.ViewHolder{
-    public TextView tvEventName;
+    public TextView tvAlertName;
     public TextView tvSchoolName;
     public   TextView tvStudentName;
-    public  TextView tvEventDate;
     public TextView tvEventTime;
-    public TextView tvRSVP;
-    public ImageView ivTickCancel;
+    public TextView tvStudentsIcon;
     public LinearLayout linearLayout;
+    public  TextView tvDescription;
+    RelativeLayout rlAlerts;
+    View view;
 
     public AlertsViewHolder( View itemView) {
         super(itemView);
 
-        tvEventName = (TextView) itemView.findViewById(R.id.tv_eventName);
-        tvSchoolName = (TextView) itemView.findViewById(R.id.tv_schoolName);
+        tvAlertName = (TextView) itemView.findViewById(R.id.tv_eventName);
+       // tvSchoolName = (TextView) itemView.findViewById(R.id.tv_schoolName);
         tvStudentName = (TextView) itemView.findViewById(R.id.tv_studentName);
-        tvEventDate = (TextView) itemView.findViewById(R.id.tv_eventDate);
         tvEventTime = (TextView) itemView.findViewById(R.id.tv_eventTime);
-        ivTickCancel = (ImageView) itemView.findViewById(R.id.ivtick_cancel);
-        tvRSVP = (TextView) itemView.findViewById(R.id.tvRSVP);
-        linearLayout = (LinearLayout) itemView.findViewById(R.id.linearLayoutRSVP);
+        tvStudentsIcon = (TextView) itemView.findViewById(R.id.tvStudentIcon);
+        tvDescription = (TextView) itemView.findViewById(R.id.tvDescription);
+        rlAlerts = itemView.findViewById(R.id.rlAlerts);
+        view = itemView.findViewById(R.id.view);
+        //linearLayout = (LinearLayout) itemView.findViewById(R.id.linearLayoutRSVP);
     }
 }

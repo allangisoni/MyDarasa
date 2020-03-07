@@ -6,6 +6,9 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import network.ConnectivityReceiver;
+import network.CustomNoInternetDialog;
+import network.MyApplication;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -27,7 +30,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class ChildrenActivity extends AppCompatActivity {
+public class ChildrenActivity extends AppCompatActivity implements ConnectivityReceiver.ConnectivityReceiverListener{
 
     private RecyclerView rvChildren;
     StudentAdapter studentAdapter;
@@ -40,6 +43,8 @@ public class ChildrenActivity extends AppCompatActivity {
     String accessToken = " ";
     String refreshToken = " ";
 
+    CustomNoInternetDialog customNoInternetDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +53,7 @@ public class ChildrenActivity extends AppCompatActivity {
         rvChildren = (RecyclerView) findViewById(R.id.rv_children);
         myToolbar =  findViewById(R.id.toolbar);
         progressBar = findViewById(R.id.progressbar);
+        customNoInternetDialog = findViewById(R.id.custom_dialog);
         setSupportActionBar(myToolbar);
 
         ActionBar actionBar = getSupportActionBar();
@@ -61,10 +67,8 @@ public class ChildrenActivity extends AppCompatActivity {
         accessToken = prefManager.getAccessToken();
         refreshToken = prefManager.getRefreshToken();
 
-        if(studentList.size()>0) {
-            studentList.clear();
-        }
-        getStudents();
+
+
 
         rvChildren.setHasFixedSize(true);
         studentAdapter = new StudentAdapter(this, studentList);
@@ -72,10 +76,36 @@ public class ChildrenActivity extends AppCompatActivity {
         rvChildren.setAdapter(studentAdapter);
         rvChildren.setLayoutManager(new LinearLayoutManager(this));
         rvChildren.setItemAnimator(new DefaultItemAnimator());
+
+        checkConnection();
+
+
+
+
+     /**   long currentTime = System.currentTimeMillis();
+        long tokenTime = Long.parseLong(prefManager.getTokenTime());
+
+        Log.d("accessTime", " "+ prefManager.getTokenTime());
+        Log.d("accessTimec", " "+ currentTime);
+
+        if(currentTime>tokenTime){
+            RequestNewToken requestNewToken = new RequestNewToken(getApplicationContext());
+            requestNewToken.getNewToken();
+            PrefManager prefManager1 = new PrefManager(this);
+            accessToken = prefManager1.getAccessToken();
+            refreshToken = prefManager1.getRefreshToken();
+            recreate();
+            //Toast.makeText(CocuricularActivity.this, "" + currentTime, Toast.LENGTH_SHORT).show();
+        } **/
+
+    // customNoInternetDialog.setVisibility(View.VISIBLE);
     }
 
     public  void getStudents(){
 
+        if(studentList.size()>0) {
+            studentList.clear();
+        }
 
         GetDataService retrofitService = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
        // Call<StudentListModel> call = retrofitService.getStudentDetails("Bearer b4f9765d-c0cc-4133-9fa0-777bf3b1b3dc");
@@ -102,7 +132,7 @@ public class ChildrenActivity extends AppCompatActivity {
                        //studentList.add(studentModel);
                     }
                 } else if(response.code()==401){
-                    getRefreshToken(refreshToken);
+                  /**  getRefreshToken(refreshToken);
                     GetDataService retrofitService = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
 
                     Call<StudentListModel> call1 = retrofitService.getStudentDetails("Bearer" +" "+ accessToken);
@@ -131,7 +161,7 @@ public class ChildrenActivity extends AppCompatActivity {
                         public void onFailure(Call<StudentListModel> call, Throwable t) {
                             progressBar.setVisibility(View.INVISIBLE);
                         }
-                    });
+                    }); **/
 
 
 
@@ -190,4 +220,33 @@ public class ChildrenActivity extends AppCompatActivity {
 
 
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getStudents();
+        MyApplication.getInstance().setConnectivityListener(this);
+
+    }
+
+    private void showcustomDialog(boolean isConnected){
+
+        if(!isConnected) {
+            customNoInternetDialog.setVisibility(View.VISIBLE);
+        }
+    }
+
+
+
+    @Override
+    public void onNetworkConnectionChanged(boolean isConnected) {
+        showcustomDialog(isConnected);
+    }
+
+    private void checkConnection() {
+        boolean isConnected = ConnectivityReceiver.isConnected();
+        showcustomDialog(isConnected);
+    }
+
+
 }

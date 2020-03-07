@@ -26,10 +26,13 @@ import com.mydarasa.app.alerts.AlertsActivity;
 import com.mydarasa.app.guardian.GuardianData;
 import com.mydarasa.app.guardian.GuardianModel;
 import com.mydarasa.app.guardian.GuardianUser;
+import com.mydarasa.app.login.ChangePasswordActivity;
 import com.mydarasa.app.login.TokenDetails;
 import com.mydarasa.app.login.UserLoginModel;
 import com.mydarasa.app.refreshtoken.RefreshTokenModel;
 import com.mydarasa.app.settings.SettingsActivity;
+
+import java.io.IOException;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -43,6 +46,8 @@ public class ProfileActivity extends AppCompatActivity {
     TextInputEditText etPhoneNumber;
     TextInputEditText etPostalAddress;
     TextInputEditText etPhysicalAddress;
+
+    TextView tvPassChange;
     //TextInputEditText etPin;
 
     private Button btnSave;
@@ -61,10 +66,11 @@ public class ProfileActivity extends AppCompatActivity {
         //Toast.makeText(getApplicationContext(), "Access token " + accessToken, Toast.LENGTH_LONG).show();
         Log.d("Access", "" + accessToken);
         Log.d("Accessr", "" + refreshToken);
+        Log.d("AccessTime", " "+  prefManager.getTokenTime());
 
         getUiViews();
 
-        getGuardianDetails();
+        //getGuardianDetails();
 
 
 
@@ -108,6 +114,29 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
+        tvPassChange.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ProfileActivity.this, ChangePasswordActivity.class));
+            }
+        });
+
+        long currentTime = System.currentTimeMillis();
+        long tokenTime = Long.parseLong(prefManager.getTokenTime());
+
+        Log.d("accessTime", " "+ prefManager.getTokenTime());
+        Log.d("accessTimec", " "+ currentTime);
+
+      /**  if(currentTime>tokenTime){
+            RequestNewToken requestNewToken = new RequestNewToken(getApplicationContext());
+            requestNewToken.getNewToken();
+            PrefManager prefManager1 = new PrefManager(this);
+            accessToken = prefManager1.getAccessToken();
+            refreshToken = prefManager1.getRefreshToken();
+            recreate();
+            //Toast.makeText(CocuricularActivity.this, "" + currentTime, Toast.LENGTH_SHORT).show();
+        } **/
+
 
     }
 
@@ -122,6 +151,7 @@ public class ProfileActivity extends AppCompatActivity {
         //btnSignOut = findViewById(R.id.rl_SignOut);
        // etPin = findViewById(R.id.etPin);
         btnSave = findViewById(R.id.btn_save);
+        tvPassChange = findViewById(R.id.tvPassChange);
 
     }
 
@@ -136,7 +166,7 @@ public class ProfileActivity extends AppCompatActivity {
         call.enqueue(new Callback<GuardianData>() {
             @Override
             public void onResponse(Call<GuardianData> call, Response<GuardianData> response) {
-               //Toast.makeText(getApplicationContext(), "" + refreshToken, Toast.LENGTH_LONG).show();
+              // Toast.makeText(getApplicationContext(), "" + refreshToken, Toast.LENGTH_LONG).show();
                 Log.d("profileresponse", "" + response.code());
                 if(response.isSuccessful() && response.code()== 200){
 
@@ -154,12 +184,17 @@ public class ProfileActivity extends AppCompatActivity {
 
 
 
-                } else if(response.code() == 401){
+                }
 
-                    getRefreshToken(refreshToken);
+               /** else if(response.code() == 401){
+
+                    RequestNewToken requestNewToken = new RequestNewToken(getApplicationContext());
+                    //String newToken = requestNewToken.getToken();
+                    Log.d("newrequested", "" + newToken);
+                    newToken = " ";
                     PrefManager prefManager1 = new PrefManager(getApplicationContext());
                     GetDataService retrofitService = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
-                    Call<GuardianData> call1 = retrofitService.getGuardian("Bearer" +" "+ accessToken, id);
+                    Call<GuardianData> call1 = retrofitService.getGuardian("Bearer" +" "+ newToken, id);
                     call1.enqueue(new Callback<GuardianData>() {
                         @Override
                         public void onResponse(Call<GuardianData> call, Response<GuardianData> response) {
@@ -190,7 +225,7 @@ public class ProfileActivity extends AppCompatActivity {
 
                 }else{
 
-                }
+                } **/
 
             }
 
@@ -203,7 +238,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
-    private void getRefreshToken(String token) {
+    private String getRefreshToken(String token) {
 
         RefreshTokenModel refreshTokenModel = new RefreshTokenModel(token);
         GetDataService loginService =
@@ -218,17 +253,18 @@ public class ProfileActivity extends AppCompatActivity {
 
                     TokenDetails details;
                     details = response.body().getTokenDetails();
-                    PrefManager manager = new PrefManager(getApplicationContext());
+                    PrefManager manager = new PrefManager(ProfileActivity.this);
 
                     String newAccessToken = details.getAccessToken();
                     manager.setAccessToken(newAccessToken);
                    // Toast.makeText(getApplicationContext(), "Access token " + newAccessToken, Toast.LENGTH_LONG).show();
-                    accessToken = newAccessToken;
+                    //accessToken = newAccessToken;
                     String newRefreshToken = details.getRefreshToken();
                     manager.setRefreshToken(newRefreshToken);
                     Log.d("Access new", "" + accessToken);
                     //recreate();
                     refreshToken = newRefreshToken;
+
 
                    // Toast.makeText(getApplicationContext(), "" + "success", Toast.LENGTH_LONG).show();
 
@@ -241,6 +277,13 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
+        return refreshToken;
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getGuardianDetails();
     }
 }

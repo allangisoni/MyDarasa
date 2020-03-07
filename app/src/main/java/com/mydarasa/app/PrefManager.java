@@ -9,12 +9,18 @@ public class PrefManager {
     SharedPreferences loginPref;
     SharedPreferences accessTokenPref;
     SharedPreferences refreshTokenPref;
+    SharedPreferences tokenTimePref;
+    SharedPreferences guardianEmailPref;
+    SharedPreferences guardianPassPref;
     SharedPreferences.Editor editor;
     SharedPreferences.Editor loginEditor;
     SharedPreferences.Editor accessTokenEditor;
     SharedPreferences guardianPref;
     SharedPreferences.Editor guardianEditor;
     SharedPreferences.Editor refreshTokenEditor;
+    SharedPreferences.Editor tokenTimeEditor;
+    SharedPreferences.Editor guardianEmailEditor;
+    SharedPreferences.Editor guardianPassEditor;
     Context _context;
 
     // shared pref mode
@@ -35,8 +41,18 @@ public class PrefManager {
     private static final String GUAARDIAN_NO_PREF = "Mydarasa_guardianNo";
     private static final String GUARDIAN_USERID = "1";
 
+    private static final String GUAARDIAN_EMAIL_PREF = "Mydarasa_guardianEmail";
+    private static final String GUARDIAN_USEREMAIL = "email";
+
+    private static final String GUAARDIAN_PASS_PREF = "Mydarasa_guardianNo";
+    private static final String GUARDIAN_USERPASS = "pass";
+
     private static final String REFRESH_TOKEN_PREF = "Mydarasa_refreshToken";
     private static final String SESSION_REFRESH_TOKEN = "refreshToken";
+
+    private static final String TOKEN_TIME_PREF = "Mydarasa_tokenTime";
+    private static final String SESSION_TIME_TOKEN = "1L";
+
 
     public PrefManager(Context context) {
         this._context = context;
@@ -50,7 +66,12 @@ public class PrefManager {
         guardianEditor = guardianPref.edit();
         refreshTokenPref = context.getSharedPreferences(REFRESH_TOKEN_PREF, PRIVATE_MODE);
         refreshTokenEditor = refreshTokenPref.edit();
-
+        tokenTimePref = context.getSharedPreferences(TOKEN_TIME_PREF, PRIVATE_MODE);
+        tokenTimeEditor =tokenTimePref.edit();
+        guardianEmailPref= context.getSharedPreferences(GUAARDIAN_EMAIL_PREF, PRIVATE_MODE);
+        guardianEmailEditor= guardianEmailPref.edit();
+        guardianPassPref = context.getSharedPreferences(GUAARDIAN_PASS_PREF, PRIVATE_MODE);
+        guardianPassEditor = guardianPassPref.edit();
     }
 
     public void setFirstTimeLaunch(boolean isFirstTime) {
@@ -101,5 +122,34 @@ public class PrefManager {
 
     public String getGuardianId(){
         return guardianPref.getString(GUARDIAN_USERID, "0");
+    }
+
+    public String getTokenTime(){
+        return  tokenTimePref.getString(SESSION_TIME_TOKEN, "1");
+    }
+
+    public void setTokenTime(String time){
+        tokenTimeEditor.putString(SESSION_TIME_TOKEN, time);
+        tokenTimeEditor.commit();
+    }
+
+    public String getGuardianEmail(){
+        return guardianEmailPref.getString(GUARDIAN_USEREMAIL, "email");
+
+    }
+
+    public void setGuardianEmail(String email){
+        guardianEmailEditor.putString(GUARDIAN_USEREMAIL, email);
+        guardianEmailEditor.commit();
+    }
+
+    public String getGuardianPass(){
+        return guardianPassPref.getString(GUARDIAN_USERPASS, "email");
+
+    }
+
+    public void setGuardianPass(String pass){
+        guardianPassEditor.putString(GUARDIAN_USERPASS, pass);
+        guardianPassEditor.commit();
     }
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -46,14 +46,49 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+        <TextView
+            android:visibility="gone"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textSize="16dp"
+            android:id="@+id/tvStudName"/>
 
+        <com.takusemba.multisnaprecyclerview.MultiSnapRecyclerView
+            android:layout_below="@id/tvStudName"
+            android:id="@+id/rvStudentPicker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            app:msrv_gravity="start"
+            app:msrv_interval="1" />
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical"
+            android:layout_below="@id/rvStudentPicker">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_events"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#EBF0EE" />
+
+        </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
     </RelativeLayout>
+
  </LinearLayout>
 
-</androidx.core.widget.NestedScrollView>
+</LinearLayout>

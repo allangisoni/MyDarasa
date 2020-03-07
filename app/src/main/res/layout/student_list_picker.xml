@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent">
+
+
+
+    <TextView
+        android:id="@+id/tvStudentIcon"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/rounded_drawable"
+        android:text="A"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:layout_margin="8dp"
+        android:textSize="20sp"
+        />
+
+    <!--<TextView
+        android:gravity="center"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:text="Ben"
+        android:textSize="16dp"
+        android:id="@+id/tvStudName"/> -->
+
+
+
+</LinearLayout>

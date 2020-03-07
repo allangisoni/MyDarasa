@@ -13,9 +13,9 @@
         android:elevation="12dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-
         app:cardCornerRadius="12dp"
-        android:backgroundTint="@android:color/white">
+        android:backgroundTint="@android:color/white"
+        android:id="@+id/cvCocurrAct">
 
         <RelativeLayout
             android:layout_width="match_parent"

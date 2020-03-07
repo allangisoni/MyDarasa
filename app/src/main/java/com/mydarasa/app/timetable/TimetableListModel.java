@@ -11,10 +11,12 @@ public class TimetableListModel {
     @Expose
     private TimetableModel[] timetableModel;
 
+
     public TimetableModel[] getTimetableModel() {
         return timetableModel;
     }
     public void setTimetableModel(TimetableModel[] timetableModel) {
         this.timetableModel = timetableModel;
     }
+
 }

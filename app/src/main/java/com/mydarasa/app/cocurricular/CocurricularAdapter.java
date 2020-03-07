@@ -17,9 +17,16 @@ public class CocurricularAdapter extends RecyclerView.Adapter<CocurricularViewHo
     private Context mContext;
     List<CocurricularModel> cocurricularModelList;
 
+   // private final OnItemClickListener listener;
+
+    public interface OnItemClickListener {
+        void onItemClick(CocurricularModel cocurricularModel);
+    }
+
     public  CocurricularAdapter(Context context, List<CocurricularModel> cocurricularModelList ){
        this.mContext = context;
        this.cocurricularModelList = cocurricularModelList;
+       //this.listener = listener;
 
     }
     @NonNull
@@ -32,12 +39,7 @@ public class CocurricularAdapter extends RecyclerView.Adapter<CocurricularViewHo
 
     @Override
     public void onBindViewHolder(@NonNull CocurricularViewHolder holder, int position) {
-
-        CocurricularModel cocurricularModel = cocurricularModelList.get(position);
-
-        holder.tvCocurricularName.setText(cocurricularModel.getName());
-        holder.tvCocurricularType.setText(cocurricularModel.getType());
-        holder.tvCocurricularStudentName.setText(cocurricularModel.getStudentName());
+           holder.bind(cocurricularModelList.get(position));
 
     }
 

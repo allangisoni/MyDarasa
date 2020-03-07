@@ -140,13 +140,30 @@
               android:background="@android:color/darker_gray"
               android:layout_marginRight="8dp"
               android:layout_marginLeft="8dp"/>
+
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              android:layout_below="@id/view">
+
+
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_marginLeft="8dp"
+                  android:layout_marginTop="8dp"
+                  android:textSize="14sp"
+                  android:id="@+id/tvAttendance"
+                  android:textColor="@android:color/black"/>
+
           <LinearLayout
               android:gravity="center"
               android:layout_marginBottom="8dp"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:layout_below="@id/view"
               android:orientation="horizontal">
+
 
              <LinearLayout
                  android:id="@+id/linearLayoutRSVP"
@@ -172,8 +189,11 @@
                   android:textSize="14sp"
                   android:textColor="@android:color/holo_red_light"/>
              </LinearLayout>
+
+
           </LinearLayout>
 
+          </LinearLayout>
 
       </RelativeLayout>
     </androidx.cardview.widget.CardView>

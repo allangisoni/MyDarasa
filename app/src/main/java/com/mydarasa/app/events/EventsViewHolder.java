@@ -20,6 +20,8 @@ public class EventsViewHolder extends RecyclerView.ViewHolder {
     public TextView tvRSVP;
     public ImageView ivTickCancel;
     public LinearLayout linearLayout;
+    public TextView tvAttendance;
+    public  View view;
 
     public EventsViewHolder( View itemView) {
         super(itemView);
@@ -32,5 +34,7 @@ public class EventsViewHolder extends RecyclerView.ViewHolder {
         ivTickCancel = (ImageView) itemView.findViewById(R.id.ivtick_cancel);
         tvRSVP = (TextView) itemView.findViewById(R.id.tvRSVP);
         linearLayout = (LinearLayout) itemView.findViewById(R.id.linearLayoutRSVP);
+        tvAttendance = (TextView) itemView.findViewById(R.id.tvAttendance);
+        view = itemView.findViewById(R.id.view);
     }
 }

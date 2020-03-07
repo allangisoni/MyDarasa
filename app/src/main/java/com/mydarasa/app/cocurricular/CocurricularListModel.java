@@ -7,13 +7,13 @@ public class CocurricularListModel {
 
     @SerializedName("data")
     @Expose
-    private CocurricularModel[] cocurricularModel;
+    private CocurricularItemList[] cocurricularItemList;
 
-    public CocurricularModel[] getCocurricularModel() {
-        return cocurricularModel;
+    public CocurricularItemList[]  getCocurricularItemList() {
+        return cocurricularItemList;
     }
 
-    public void setCocurricularModel(CocurricularModel[] cocurricularModel) {
-        this.cocurricularModel = cocurricularModel;
+    public void setCocurricularItemList(CocurricularItemList[] cocurricularItemList) {
+        this.cocurricularItemList = cocurricularItemList;
     }
 }

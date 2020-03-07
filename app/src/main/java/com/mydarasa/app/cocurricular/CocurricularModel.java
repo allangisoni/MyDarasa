@@ -21,6 +21,14 @@ public class CocurricularModel {
     @Expose
     private String registrationNo;
 
+    @SerializedName("schoolTypeNo")
+    @Expose
+    private String schoolTypeNo;
+
+    @SerializedName("studentNo")
+    @Expose
+    private String studentNo;
+
     public String getName() {
         return name;
     }
@@ -51,5 +59,21 @@ public class CocurricularModel {
 
     public void setRegistrationNo(String registrationNo) {
         this.registrationNo = registrationNo;
+    }
+
+    public String getSchoolTypeNo() {
+        return schoolTypeNo;
+    }
+
+    public void setSchoolTypeNo(String schoolTypeNo) {
+        this.schoolTypeNo = schoolTypeNo;
+    }
+
+    public String getStudentNo() {
+        return studentNo;
+    }
+
+    public void setStudentNo(String studentNo) {
+        this.studentNo = studentNo;
     }
 }

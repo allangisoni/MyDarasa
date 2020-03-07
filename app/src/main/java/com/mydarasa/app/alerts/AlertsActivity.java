@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.mydarasa.app.GetDataService;
 import com.mydarasa.app.PrefManager;
 import com.mydarasa.app.R;
+import com.mydarasa.app.RequestNewToken;
 import com.mydarasa.app.RetrofitClientInstance;
 import com.mydarasa.app.cocurricular.CocurricularAdapter;
 import com.mydarasa.app.cocurricular.CocurricularListModel;
@@ -37,7 +38,7 @@ public class AlertsActivity extends AppCompatActivity {
     private AlertsAdapter alertsAdapter;
 
     private ProgressBar progressBar;
-    List<EventsModel> eventsModelsList = new ArrayList<>();
+    List<AlertsModel> alertsModelList = new ArrayList<>();
 
     Toolbar myToolbar;
     PrefManager prefManager;
@@ -59,38 +60,54 @@ public class AlertsActivity extends AppCompatActivity {
         //actionBar.setHomeAsUpIndicator(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
-        actionBar.setTitle("Cocurriculars");
+        actionBar.setTitle("Alerts");
         prefManager = new PrefManager(this);
 
         accessToken = prefManager.getAccessToken();
         refreshToken = prefManager.getRefreshToken();
 
         progressBar.setVisibility(View.VISIBLE);
-        getCocurriculars();
+
 
         rvAlert.setHasFixedSize(true);
-        alertsAdapter = new AlertsAdapter(this, eventsModelsList);
+        alertsAdapter = new AlertsAdapter(this, alertsModelList);
 
         rvAlert.setAdapter(alertsAdapter);
         rvAlert.setLayoutManager(new LinearLayoutManager(this));
         rvAlert.setItemAnimator(new DefaultItemAnimator());
 
+      /**  long currentTime = System.currentTimeMillis();
+        long tokenTime = Long.parseLong(prefManager.getTokenTime());
+
+        Log.d("accessTime", " "+ prefManager.getTokenTime());
+        Log.d("accessTimec", " "+ currentTime);
+
+        if(currentTime>tokenTime){
+            RequestNewToken requestNewToken = new RequestNewToken(getApplicationContext());
+            requestNewToken.getNewToken();
+            PrefManager prefManager1 = new PrefManager(this);
+            accessToken = prefManager1.getAccessToken();
+            refreshToken = prefManager1.getRefreshToken();
+            recreate();
+            //Toast.makeText(CocuricularActivity.this, "" + currentTime, Toast.LENGTH_SHORT).show();
+        } **/
+
     }
 
 
-    private void getCocurriculars() {
+    private void getAlerts() {
 
-        if(eventsModelsList.size()>0){
-            eventsModelsList.clear();
+        if(alertsModelList.size()>0){
+            alertsModelList.clear();
         }
 
         GetDataService retrofitService = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
-        Call<EventListModel> call = retrofitService.getAlerts("Bearer" +" "+ accessToken);
+        Call<AlertsListModel> call = retrofitService.getAlerts("Bearer" +" "+ accessToken);
 
 
-        call.enqueue(new Callback<EventListModel>() {
+        call.enqueue(new Callback<AlertsListModel>() {
             @Override
-            public void onResponse(Call<EventListModel> call, Response<EventListModel> response) {
+            public void onResponse(Call<AlertsListModel> call, Response<AlertsListModel> response) {
                 Log.d("cocurricularresponse", "" + response.code());
                 Log.d("cocurricularresponse", "" + response.isSuccessful());
 
@@ -98,13 +115,13 @@ public class AlertsActivity extends AppCompatActivity {
 
                     if(response.body() != null){
                         // for (EventListModel eventListModel : response.body()) {
-                        EventListModel eventListModel = response.body();
+                        AlertsListModel alertsListModel = response.body();
                         //EventsModel[] events =eventListModel.getEventsModel();
 
 
-                        List newlist = new ArrayList<>(Arrays.asList(eventListModel.getEventsModel()));
+                        List newlist = new ArrayList<>(Arrays.asList(alertsListModel.getAlertsModels()));
                         progressBar.setVisibility(View.INVISIBLE);
-                        eventsModelsList.addAll(newlist);
+                        alertsModelList.addAll(newlist);
 
 
                         //}
@@ -114,12 +131,12 @@ public class AlertsActivity extends AppCompatActivity {
 
                 }
 
-                Log.d("eventlistSize", "" + eventsModelsList.size());
+                Log.d("eventlistSize", "" + alertsModelList.size());
                 alertsAdapter.notifyDataSetChanged();
             }
 
             @Override
-            public void onFailure(Call<EventListModel> call, Throwable t) {
+            public void onFailure(Call<AlertsListModel> call, Throwable t) {
                 progressBar.setVisibility(View.INVISIBLE);
                 Toast.makeText(getApplicationContext(), "Failed" + t.getMessage().toString(), Toast.LENGTH_LONG).show();
             }
@@ -134,4 +151,9 @@ public class AlertsActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getAlerts();
+    }
 }

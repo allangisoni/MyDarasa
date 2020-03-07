@@ -47,12 +47,39 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <TextView
+                android:visibility="gone"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:textSize="16dp"
+                android:id="@+id/tvStudName"/>
 
+            <com.takusemba.multisnaprecyclerview.MultiSnapRecyclerView
+                android:layout_below="@id/tvStudName"
+                android:id="@+id/rvStudentPicker"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                app:msrv_gravity="start"
+                app:msrv_interval="1" />
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="vertical"
+                android:layout_below="@id/rvStudentPicker">
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvCocurricular"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#EBF0EE" />
+            </androidx.core.widget.NestedScrollView>
         </RelativeLayout>
     </LinearLayout>
 

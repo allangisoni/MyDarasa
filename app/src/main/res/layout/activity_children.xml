@@ -48,4 +48,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
 
+    <network.CustomNoInternetDialog
+        android:id="@+id/custom_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        app:image="@drawable/storm"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:text1="Ooops!"
+        app:text2="No internet connection found"
+        app:text3="Check your connection"
+        app:button="TRY AGAIN"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

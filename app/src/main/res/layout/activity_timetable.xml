@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".progressreports.ProgressReportsActivity"
+    tools:context=".timetable.TimetableActivity"
     android:background="#EBF0EE">
     <LinearLayout
         android:orientation="vertical"
@@ -39,22 +39,61 @@
                 android:indeterminate="true"
                 android:layout_marginTop="-7dp"
                 android:layout_marginBottom="-7dp"/>
+
+            <devs.mulham.horizontalcalendar.HorizontalCalendarView
+                android:id="@+id/calendarView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                app:textColorSelected="#FFFF"/>
         </com.google.android.material.appbar.AppBarLayout>
 
 
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            >
 
-            <com.applandeo.materialcalendarview.CalendarView
+           <!-- <com.applandeo.materialcalendarview.CalendarView
                 android:id="@+id/calendarView"
                 android:layout_width="match_parent"
-                android:layout_height="390dp"
-                app:headerColor="@color/colorPrimary"/>
+                android:layout_height="250dp"
+                app:headerColor="@color/colorPrimary"
+                /> -->
 
+           <!-- <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+                android:id="@+id/calendarView"
+                android:layout_width="match_parent"
+                android:layout_height="350dp"
+                app:mcv_showOtherDates="all"
+                app:mcv_selectionColor="@color/dot_light_screen1"
+                /> -->
+
+            <TextView
+                android:visibility="gone"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:textSize="16dp"
+                android:id="@+id/tvStudName"/>
+
+            <com.takusemba.multisnaprecyclerview.MultiSnapRecyclerView
+                android:layout_below="@id/tvStudName"
+                android:id="@+id/rvStudentPicker"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                app:msrv_gravity="start"
+                app:msrv_interval="1" />
             <androidx.core.widget.NestedScrollView
-                android:layout_below="@id/calendarView"
+                android:layout_below="@id/rvStudentPicker"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -67,4 +106,4 @@
         </RelativeLayout>
     </LinearLayout>
 
-</androidx.core.widget.NestedScrollView>
+</LinearLayout>

@@ -25,9 +25,9 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profile_image"
-                android:layout_width="56dp"
-                android:layout_height="56dp"
-                android:src="@drawable/ic_person"
+                android:layout_width="76dp"
+                android:layout_height="76dp"
+                android:src="@drawable/user"
                 app:civ_border_color="#FF000000"
                 app:civ_border_width="2dp" />
 
@@ -202,12 +202,23 @@
                    android:inputType="textPassword"
                    android:id="@+id/etPin"/>
 
+
+
            </com.google.android.material.textfield.TextInputLayout> -->
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Change password"
+               android:textColor="@color/colorPrimary"
+               android:layout_gravity="right"
+               android:id="@+id/tvPassChange"
+               android:layout_marginBottom="8dp"/>
 
            <Button
                android:id="@+id/btn_save"
                android:textColor="@color/cardview_light_background"
-               android:layout_marginTop="8dp"
+               android:layout_marginTop="12dp"
                android:layout_gravity="center"
                android:layout_width="200dp"
                android:layout_height="wrap_content"
@@ -270,4 +281,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_nav_menu" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

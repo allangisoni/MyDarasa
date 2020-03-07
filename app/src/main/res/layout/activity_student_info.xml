@@ -77,8 +77,12 @@
             android:text="More Details"
             android:textColor="@android:color/holo_blue_light"
             android:textSize="18sp"
-            android:layout_gravity="end"/>
+            android:layout_gravity="end"
+            android:id="@+id/tv_all_events"/>
     </LinearLayout>
+
+
+
     </LinearLayout>
 
     <com.takusemba.multisnaprecyclerview.MultiSnapRecyclerView
@@ -95,6 +99,24 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayoutEvents"
         app:msrv_gravity="start"
         app:msrv_interval="1" />
+
+
+    <TextView
+        android:id="@+id/tv_no_events_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="@string/no_data_found"
+        android:textColor="@color/color_amber"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.04"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutEvents" />
 
 
     <LinearLayout
@@ -139,7 +161,8 @@
                 android:layout_gravity="end"
                 android:text="More Details"
                 android:textColor="@android:color/holo_blue_light"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:id="@+id/tv_all_cocurricular"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -157,6 +180,23 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
         app:msrv_gravity="start"
         app:msrv_interval="1" />
+
+    <TextView
+        android:id="@+id/tv_no_cocurricular_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="@string/no_cocurricular_data_found"
+        android:textColor="@color/color_amber"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.04"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
 
     <LinearLayout
@@ -201,7 +241,8 @@
                 android:layout_gravity="end"
                 android:text="More Details"
                 android:textColor="@android:color/holo_blue_light"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:id="@+id/tv_all_reports"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -220,6 +261,21 @@
         app:msrv_gravity="start"
         app:msrv_interval="1" />
 
-
+    <TextView
+        android:id="@+id/tv_no_reports_data"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/no_reports_data_found"
+        android:textColor="@color/color_amber"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+        app:layout_constraintHorizontal_bias="0.04"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

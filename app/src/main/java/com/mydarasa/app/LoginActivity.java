@@ -201,15 +201,29 @@ public class LoginActivity extends AppCompatActivity {
                             TokenDetails details = new TokenDetails();
                             details = response.body().getTokenDetails();
 
+                            long currentTime = System.currentTimeMillis();
+                            String expireTime = " ";
+                            expireTime = details.getExpiryTime();
+                            long time =Long.parseLong(expireTime);
+                            time = time * 1000;
+
+                            currentTime = currentTime + time;
+                            String newExpireTime = "";
+                            newExpireTime = Long.toString(currentTime);
+
+
                             Log.d("token", "" + details.getAccessToken());
                             Log.d("token", "" + details.getTokenType());
                             Log.d("token", "" + details.getRefreshToken());
-                            Log.d("token", "" + details.getExpiryTime());
+                            Log.d("token", "" + currentTime);
                             Log.d("token", "" + details.getScope());
 
                             prefManager.setAccessToken(details.getAccessToken());
                             prefManager.setRefreshToken(details.getRefreshToken());
                             prefManager.setGuardianId(response.body().getGuardianNo());
+                            prefManager.setTokenTime(newExpireTime);
+                            prefManager.setGuardianEmail(username);
+                            prefManager.setGuardianPass(userpassword);
                             Log.d("token_shared", prefManager.getAccessToken());
 
 
@@ -266,8 +280,8 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                startActivity(new Intent(LoginActivity.this, PhoneOTPActivity.class));
-
+                //startActivity(new Intent(LoginActivity.this, PhoneOTPActivity.class));
+                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
             }
         });
 

@@ -13,6 +13,10 @@ public class FeeStatementModel  {
     @Expose
     private String feeBal;
 
+    @SerializedName("studentName")
+    @Expose
+    private String studentName;
+
     public String getFeeAmount() {
         return feeAmount;
     }
@@ -27,5 +31,13 @@ public class FeeStatementModel  {
 
     public void setFeeBal(String feeBal) {
         this.feeBal = feeBal;
+    }
+
+    public String getStudentName() {
+        return studentName;
+    }
+
+    public void setStudentName(String studentName) {
+        this.studentName = studentName;
     }
 }

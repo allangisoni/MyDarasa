@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class TimetableItemModel {
 
-    @SerializedName("name")
+    @SerializedName("subjectName")
     @Expose
     private String itemName;
 
@@ -16,6 +16,15 @@ public class TimetableItemModel {
     @SerializedName("endTime")
     @Expose
     private String endTime;
+
+    @SerializedName("weekDay")
+    @Expose
+    private String weekDay;
+
+    @SerializedName("teacherName")
+    @Expose
+    private String teacherName;
+
 
     public String getItemName() {
         return itemName;
@@ -39,5 +48,21 @@ public class TimetableItemModel {
 
     public void setEndTime(String endTime) {
         this.endTime = endTime;
+    }
+
+    public String getWeekDay() {
+        return weekDay;
+    }
+
+    public void setWeekDay(String weekDay) {
+        this.weekDay = weekDay;
+    }
+
+    public String getTeacherName() {
+        return teacherName;
+    }
+
+    public void setTeacherName(String teacherName) {
+        this.teacherName = teacherName;
     }
 }

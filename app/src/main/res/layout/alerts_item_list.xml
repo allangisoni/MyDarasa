@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp"
+    >
+
+   <!-- <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="12dp"
+        app:cardCornerRadius="12dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:backgroundTint="@android:color/white"
+        >-->
+        <RelativeLayout
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/rlAlerts"
+            >
+
+
+            <!--<ImageView
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:id="@+id/ivProfileImage"
+                android:src="@drawable/ic_person"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" /> -->
+
+            <TextView
+                android:id="@+id/tvStudentIcon"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/rounded_drawable"
+                android:text="A"
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                android:layout_margin="8dp"
+                android:textSize="20sp"
+                />
+
+            <TextView
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_eventName"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textColor="@android:color/black"
+                android:layout_toRightOf="@id/tvStudentIcon"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_eventTime"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+                android:textSize="12sp"
+                android:textColor="@android:color/black"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"/>
+
+            <TextView
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvDescription"
+                android:layout_below="@id/tv_eventName"
+                android:layout_toRightOf="@id/tvStudentIcon"
+                android:textSize="12sp"
+                android:textColor="@android:color/black"
+                android:maxLines="2"
+                android:ellipsize="end"/>
+
+
+            <RelativeLayout
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="4dp"
+                android:id="@+id/linearLayoutRSVP"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvDescription"
+                android:layout_toRightOf="@id/tvStudentIcon">
+
+            <ImageView
+                android:layout_marginLeft="8dp"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:id="@+id/ivStudent"
+                android:src="@drawable/ic_person"
+               />
+
+                <TextView
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_studentName"
+                    android:textSize="12sp"
+                    android:textColor="@android:color/black"
+                    android:layout_toRightOf="@id/ivStudent"/>
+
+                <ImageView
+                    android:layout_marginRight="8dp"
+                    android:layout_width="24dp"
+                    android:layout_height="20dp"
+                    android:id="@+id/ivComment"
+                    android:src="@drawable/ic_reply"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    />
+            </RelativeLayout>
+
+
+
+
+            <!--   <TextView
+                   android:layout_marginLeft="8dp"
+                   android:layout_marginRight="8dp"
+                   android:layout_marginTop="8dp"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:id="@+id/tv_schoolName"
+                   android:layout_below="@id/tvStudentIcon"
+                   android:layout_toRightOf="@id/tv_studentName"
+                   android:textSize="16sp"
+                   android:textColor="@android:color/black"/>
+
+         -->
+
+
+
+
+
+
+
+            <View
+                android:id="@+id/view"
+                android:layout_below="@id/linearLayoutRSVP"
+                android:layout_toRightOf="@id/tvStudentIcon"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginRight="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginBottom="8dp"/>
+
+
+
+
+
+        </RelativeLayout>
+   <!-- </androidx.cardview.widget.CardView>-->
+</RelativeLayout>

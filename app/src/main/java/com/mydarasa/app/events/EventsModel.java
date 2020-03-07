@@ -5,6 +5,10 @@ import com.google.gson.annotations.SerializedName;
 
 public class EventsModel {
 
+    @SerializedName("eventNo")
+    @Expose()
+    private String eventId;
+
     @SerializedName("evenName")
     @Expose
     private String eventName;
@@ -32,6 +36,10 @@ public class EventsModel {
     @SerializedName("studentName")
     @Expose
     private String studentName;
+
+    @SerializedName("rsvp")
+    @Expose
+    private String rsvp;
 
     public EventsModel(){
 
@@ -91,5 +99,21 @@ public class EventsModel {
 
     public void setStudentName(String studentName) {
         this.studentName = studentName;
+    }
+
+    public String getEventId() {
+        return eventId;
+    }
+
+    public void setEventId(String eventId) {
+        this.eventId = eventId;
+    }
+
+    public String getRsvp() {
+        return rsvp;
+    }
+
+    public void setRsvp(String rsvp) {
+        this.rsvp = rsvp;
     }
 }

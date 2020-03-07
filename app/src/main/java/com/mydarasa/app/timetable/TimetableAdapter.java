@@ -1,16 +1,22 @@
 package com.mydarasa.app.timetable;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.mydarasa.app.R;
+import com.mydarasa.app.cocurricular.CocurricularTrainingActivity;
+import com.mydarasa.app.cocurricular.TrainingDetailsActivity;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -35,7 +41,10 @@ public class TimetableAdapter extends RecyclerView.Adapter<timetableViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull timetableViewHolder holder, int position) {
-          TimetableItemModel timetableItemModel = timetableItemModelList.get(position);
+        final TimetableItemModel timetableItemModel = timetableItemModelList.get(position);
+
+        Random mRandom = new Random();
+        int color = Color.argb(255, mRandom.nextInt(256), mRandom.nextInt(256), mRandom.nextInt(256));
 
         String startTime = timetableItemModel.getStartTime();
         String endTime = timetableItemModel.getEndTime();
@@ -57,7 +66,18 @@ public class TimetableAdapter extends RecyclerView.Adapter<timetableViewHolder> 
         holder.tvstartTime.setText(formattedStartTime);
         holder.tvendTime.setText(formattedEndTime);
         holder.tvSujectName.setText(timetableItemModel.getItemName() + " "+ " class");
-        holder.tvTutor.setText("John Doe");
+        holder.tvTutor.setText(timetableItemModel.getTeacherName());
+        holder.view.setBackgroundColor(color);
+        holder.rlTimetable.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(timetableItemModel.getItemName() != ""){
+                    if (timetableItemModel.getItemName().equals("Classic Yoga")){
+                        mContext.startActivity(new Intent(mContext, TrainingDetailsActivity.class));
+                    }
+                }
+            }
+        });
     }
 
     @Override

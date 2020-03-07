@@ -20,16 +20,16 @@
 
 
     <array name="array_dot_active">
-        <item>@color/dot_light_screen1</item>
         <item>@color/dot_light_screen2</item>
-        <item>@color/dot_light_screen3</item>
+        <item>@color/dot_light_screen2</item>
+        <item>@color/dot_light_screen2</item>
 
     </array>
 
     <array name="array_dot_inactive">
-        <item>@color/dot_dark_screen1</item>
         <item>@color/dot_dark_screen2</item>
-        <item>@color/dot_dark_screen3</item>
+        <item>@color/dot_dark_screen2</item>
+        <item>@color/dot_dark_screen2</item>
 
     </array>
 
@@ -37,4 +37,6 @@
    <color name="text_color_black">#000000</color>
    <color name="card_view_background">#14a895</color>
     <color name="color_red_rsvp">#E74C3C</color>
+    <color name="chat_color"> #99ffcc</color>
+    <color name="color_amber">#FFBF00</color>
 </resources>
